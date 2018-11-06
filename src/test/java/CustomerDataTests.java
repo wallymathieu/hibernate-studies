@@ -1,49 +1,45 @@
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import se.gewalli.commands.Command;
 import se.gewalli.data.EntityNotFound;
-import se.gewalli.data.InMemoryRepository;
+import se.gewalli.data.HibernateRepository;
 import se.gewalli.data.Repository;
 import xmlimport.GetCommands;
-import org.hibernate.Criteria;
-import org.hibernate.LazyInitializationException;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Example;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CustomerDataTests {
     private static SessionFactory sessionFactory = null;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp() throws Exception
     {
         sessionFactory = new Configuration().configure().buildSessionFactory();
         GetCommands getCommands=new GetCommands();
+        Session session =sessionFactory.openSession();
+        Transaction transaction= session.beginTransaction();
+        HibernateRepository repository = new HibernateRepository(session);
+
         for (Command command : getCommands.Get()) {
             command.run(repository);
         }
+        session.close();
     }
 
-    @AfterClass
-    public static void tearDown() throws Exception
-    {
+    @AfterAll
+    public static void tearDown() {
         sessionFactory.close();
     }
     Repository repository;
     @BeforeEach
-    public void beforeEach() throws EntityNotFound {
-        repository=new InMemoryRepository();
-
+    public void beforeEach() {
+        repository=new HibernateRepository(sessionFactory.openSession());
     }
     @Test
     public void canGetCustomerById() throws EntityNotFound {
