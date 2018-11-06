@@ -1,11 +1,15 @@
 package se.gewalli.entities;
 
+import javax.persistence.Entity;
 
+@Entity
 public class Customer {
-    public final int id;
-    public final String firstname;
-    public final String lastname;
-    public final int version;
+    @javax.persistence.Id
+    public int id;
+    public String firstname;
+    public String lastname;
+    public int version;
+    protected Customer(){}
 
     public Customer(int id, String firstName, String lastName, int version) {
         this.id = id;

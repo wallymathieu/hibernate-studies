@@ -1,16 +1,23 @@
 package se.gewalli.entities;
 
 
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.time.Instant;
 
+@Entity
 public class Order {
-    public final int id;
-    public final Customer customer;
-    public final Instant orderDate;
-    public final Collection<Product> products;
-    public final int version;
+    @javax.persistence.Id
+    public int id;
+    @OneToOne
+    public Customer customer;
+    public Instant orderDate;
+
+    @OneToMany
+    public Collection<Product> products=new ArrayList<>();
+    public int version;
 
     public Order(int id, Customer customer, Instant orderDate, Collection<Product> products, int version) {
         this.id = id;
@@ -18,5 +25,8 @@ public class Order {
         this.orderDate = orderDate;
         this.products = Collections.unmodifiableCollection(products);
         this.version = version;
+    }
+
+    protected Order() {
     }
 }

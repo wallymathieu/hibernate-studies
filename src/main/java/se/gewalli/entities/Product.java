@@ -1,10 +1,16 @@
 package se.gewalli.entities;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Product {
-    public final int id;
-    public final float cost;
-    public final String name;
-    public final int version;
+    @javax.persistence.Id
+    public int id;
+    public float cost;
+    public String name;
+    public int version;
+    protected Product() {
+    }
 
     public Product(int id, float cost, String name, int version) {
         this.id = id;

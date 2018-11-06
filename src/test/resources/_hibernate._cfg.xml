@@ -5,17 +5,16 @@
 
 <hibernate-configuration>
     <session-factory>
-
-        <property name="connection.driver_class">org.hsqldb.jdbc.JDBCDriver</property>
-        <property name="connection.url">jdbc:hsqldb:hsql://localhost/</property>
-        <property name="connection.username">sa</property>
-        <property name="connection.password"></property>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.url">jdbc:postgresql://127.0.0.1:5432/hibernate-studies-test</property>
+        <property name="connection.username">hibernate-studies</property>
+        <property name="connection.password">0c52788f-770c-4ddc-a6e3-19c324e1fb24</property>
 
         <!-- JDBC connection pool (use the built-in) -->
         <property name="connection.pool_size">1</property>
 
         <!-- SQL dialect -->
-        <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
+        <property name="dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
 
         <!-- Enable Hibernate's automatic session context management -->
         <property name="current_session_context_class">thread</property>

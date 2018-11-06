@@ -45,16 +45,16 @@ public class HibernateRepository extends Repository  {
 
     @Override
     public Collection<Customer> getCustomers() {
-        return session.createQuery( "from customers", Customer.class).getResultList();
+        return session.createQuery( "from Customer", Customer.class).getResultList();
     }
 
     @Override
     public Collection<Product> getProducts() {
-        return session.createQuery( "from products", Product.class).getResultList();
+        return session.createQuery( "from Product", Product.class).getResultList();
     }
 
     @Override
     public Collection<Order> getOrders() {
-        return session.createQuery( "from orders", Order.class).getResultList();
+        return session.createQuery( "from Order", Order.class).getResultList();
     }
 }
