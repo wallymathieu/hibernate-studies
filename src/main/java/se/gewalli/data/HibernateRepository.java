@@ -29,18 +29,18 @@ public class HibernateRepository extends Repository  {
     }
 
     @Override
-    public void save(Product obj) {
-        session.saveOrUpdate(obj);
+    public void save(Product product) {
+        session.saveOrUpdate(product);
     }
 
     @Override
-    public void save(Order obj) {
-        session.saveOrUpdate(obj);
+    public void save(Order order) {
+        session.saveOrUpdate(order);
     }
 
     @Override
-    public void save(Customer obj) {
-        session.saveOrUpdate(obj);
+    public void save(Customer customer) {
+        session.saveOrUpdate(customer);
     }
 
     @Override

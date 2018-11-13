@@ -1,18 +1,18 @@
-package se.gewalli;
+package se.gewalli.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
-import se.gewalli.data.InMemoryRepository;
-import se.gewalli.data.Repository;
+import org.springframework.web.context.WebApplicationContext;
+import se.gewalli.AppendBatch;
+import se.gewalli.CommandsHandler;
 import se.gewalli.json.AppendToFile;
-
 import java.util.concurrent.Executors;
-
-
 
 @Configuration
 public class AppConfig {
@@ -20,11 +20,7 @@ public class AppConfig {
     private Environment env;
 
     @Bean
-    public Repository repository() {
-        return new InMemoryRepository();
-    }
-
-    @Bean
+    @Scope( ConfigurableBeanFactory.SCOPE_SINGLETON)
     public AppendBatch appendBatch() {
         String dbLocation = env.getProperty("FILE_DB_LOCATION");
         Logger logger = LoggerFactory.getLogger(AppConfig.class);
@@ -38,6 +34,7 @@ public class AppConfig {
     }
 
     @Bean
+    @Scope(value = WebApplicationContext.SCOPE_REQUEST)
     public CommandsHandler persistCommandsHandler() {
         return new CommandsHandler();
     }
