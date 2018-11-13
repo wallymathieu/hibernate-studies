@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.time.Instant;
 
-@Entity
+@Entity(name="Orders")
 public class Order {
     @javax.persistence.Id
     public int id;

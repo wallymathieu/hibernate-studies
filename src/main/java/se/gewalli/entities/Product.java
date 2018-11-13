@@ -2,7 +2,7 @@ package se.gewalli.entities;
 
 import javax.persistence.Entity;
 
-@Entity
+@Entity(name="Products")
 public class Product {
     @javax.persistence.Id
     public int id;

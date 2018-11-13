@@ -2,10 +2,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import se.gewalli.commands.Command;
 import se.gewalli.data.EntityNotFound;
 import se.gewalli.data.HibernateRepository;
@@ -22,24 +19,44 @@ public class CustomerDataTests {
     {
         sessionFactory = new Configuration().configure().buildSessionFactory();
         GetCommands getCommands=new GetCommands();
-        Session session =sessionFactory.openSession();
-        Transaction transaction= session.beginTransaction();
-        HibernateRepository repository = new HibernateRepository(session);
 
         for (Command command : getCommands.Get()) {
-            command.run(repository);
+            runInSession(command);
         }
-        session.close();
     }
+    private static void runInSession(Command command){
+        Session session = null;
+        Transaction transaction=null;
+        try {
+            session= sessionFactory.openSession();
+            transaction = session.beginTransaction();
+            HibernateRepository repository = new HibernateRepository(session);
+
+            command.run(repository);
+            transaction.commit();
+        }catch (Exception e){
+            if (transaction!=null)transaction.rollback();
+            System.out.println(e.getMessage());
+        }finally {
+            if (session!=null)session.close();
+        }
+    }
+
 
     @AfterAll
     public static void tearDown() {
         sessionFactory.close();
     }
     Repository repository;
+    Session _session;
     @BeforeEach
     public void beforeEach() {
-        repository=new HibernateRepository(sessionFactory.openSession());
+        _session=sessionFactory.openSession();
+        repository=new HibernateRepository(_session);
+    }
+    @AfterEach
+    public void afterEach(){
+        _session.close();
     }
     @Test
     public void canGetCustomerById() throws EntityNotFound {

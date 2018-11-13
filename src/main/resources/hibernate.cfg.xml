@@ -7,7 +7,7 @@
     <session-factory>
 
         <property name="connection.driver_class">org.postgresql.Driver</property>
-        <property name="connection.url">jdbc:postgresql://127.0.0.1:5432/hibernate-studies-test</property>
+        <property name="connection.url">jdbc:postgresql://127.0.0.1:5432/hibernate-studies</property>
         <property name="connection.username">hibernate-studies</property>
         <property name="connection.password">0c52788f-770c-4ddc-a6e3-19c324e1fb24</property>
 
@@ -24,7 +24,7 @@
         <property name="show_sql">true</property>
 
         <!-- Drop and re-create the database schema on startup -->
-        <property name="hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">update</property>
 
         <!-- <property name="hibernate.search.default.directory_provider">filesystem</property>
             <property name="hibernate.search.default.indexBase">target/indexes</property> -->
