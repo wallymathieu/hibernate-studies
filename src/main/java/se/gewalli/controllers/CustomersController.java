@@ -3,9 +3,11 @@ package se.gewalli.controllers;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.WebApplicationContext;
 import se.gewalli.CommandsHandler;
 import se.gewalli.commands.AddCustomerCommand;
 import se.gewalli.commands.Command;
@@ -15,6 +17,7 @@ import se.gewalli.entities.Customer;
 import java.util.concurrent.CompletableFuture;
 
 @RestController()
+@Scope(value = WebApplicationContext.SCOPE_REQUEST)
 public class CustomersController {
     public static class CreateCustomer{
         public int id;
@@ -38,9 +41,9 @@ public class CustomersController {
             @ApiResponse(code = 200, message = "successful operation", response = Customer.class)})
     @RequestMapping(value = "/api/customers", method = RequestMethod.POST)
     public CompletableFuture<ResponseEntity<Customer>> add(@RequestBody()CreateCustomer body) {
-        Command c=new AddCustomerCommand(body.id,0, body.firstname, body.lastname);
-        return commandsHandler.handle(c).thenApply(res->
-                res.fold(a -> ResponseEntity.ok(repository.tryGetCustomer(body.id).orElse(null)),
+        Command command=new AddCustomerCommand(body.id,0, body.firstname, body.lastname);
+        return commandsHandler.handle(command).thenApply(result->
+                result.fold(a -> ResponseEntity.ok(repository.tryGetCustomer(body.id).orElse(null)),
                         err->ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null)));
     }
 }
