@@ -2,7 +2,7 @@ language: java
 services: postgresql
 before_script:
   - psql -c 'CREATE DATABASE "hibernate-studies-test";' -U postgres
-  - psql -c 'CREATE USER "hibernate-studies" WITH ENCRYPTED PASSWORD "0c52788f-770c-4ddc-a6e3-19c324e1fb24";' -U postgres
-  - psql -c 'GRANT ALL PRIVILEGES ON DATABASE "hibernate-studies-test" TO "hibernate-studies" ;' -U postgres
+  - psql -c "CREATE USER \"hibernate-studies\" WITH ENCRYPTED PASSWORD '0c52788f-770c-4ddc-a6e3-19c324e1fb24';" -U postgres
+  - psql -c "GRANT ALL PRIVILEGES ON DATABASE \"hibernate-studies-test\" TO \"hibernate-studies\" ;" -U postgres
 script: "mvn clean package dependency-check:check test"
 
