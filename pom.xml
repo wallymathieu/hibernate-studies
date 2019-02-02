@@ -125,10 +125,6 @@
                 <version>2.22.1</version>
             </plugin>
             <plugin>
-                <!-- 
-                Check new versions with:
-                mvn versions:display-property-updates
-                -->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
                 <version>2.7</version>

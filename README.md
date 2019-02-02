@@ -6,7 +6,7 @@ Port of nhibernate-studies to Java
 Outdated:
 
 ```bash
-mvn versions:display-property-updates
+mvn versions:display-dependency-updates
 ```
 
 OWASP:
