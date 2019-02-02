@@ -5,10 +5,10 @@ PostgreSQL:
     - "5432:5432"
   environment:
     - DEBUG=false
-
     - POSTGRES_PASSWORD=0c52788f-770c-4ddc-a6e3-19c324e1fb24
     - POSTGRES_DB=hibernate-studies-test
     - POSTGRES_USER=hibernate-studies
-#  volumes:
-#   - /srv/docker/postgresql:/var/lib/postgresql
+    - PGDATA=/vm_pg/data
+  volumes:
+   - ./tmp/:/vm_pg/
 
