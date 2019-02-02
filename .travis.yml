@@ -1,6 +1,6 @@
 language: java
 services: postgresql
 before_script:
-  - psql -c 'create database hibernate-studies-test;' -U postgres
+  - psql -c 'create database "hibernate-studies-test";' -U postgres
 script: "( export connection_url='jdbc:postgresql://127.0.0.1:5432/hibernate-studies-test'; export connection_username=postgres; export connection_password=; mvn clean package dependency-check:check test)"
 
