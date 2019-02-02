@@ -11,20 +11,21 @@ import xmlimport.GetCommands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CustomerDataTests {
-    private static SessionFactory sessionFactory = null;
+import java.util.function.Supplier;
 
-    @BeforeAll
-    public static void setUp() throws Exception
-    {
-        sessionFactory = new Configuration().configure().buildSessionFactory();
+public class CustomerDataTests {
+    private Supplier<SessionFactory> sessionFactory = () -> setUp();
+
+    private static SessionFactory setUp() {
+        SessionFactory s = new Configuration().configure().buildSessionFactory();
         GetCommands getCommands=new GetCommands();
 
         for (Command command : getCommands.Get()) {
-            runInSession(command);
+            runInSession(s, command);
         }
+        return s;
     }
-    private static void runInSession(Command command){
+    private static void runInSession(SessionFactory sessionFactory, Command command){
         Session session = null;
         Transaction transaction=null;
         try {
@@ -42,16 +43,11 @@ public class CustomerDataTests {
         }
     }
 
-
-    @AfterAll
-    public static void tearDown() {
-        sessionFactory.close();
-    }
     Repository repository;
     Session _session;
     @BeforeEach
     public void beforeEach() {
-        _session=sessionFactory.openSession();
+        _session=sessionFactory.get().openSession();
         repository=new HibernateRepository(_session);
     }
     @AfterEach

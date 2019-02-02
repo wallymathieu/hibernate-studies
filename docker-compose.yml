@@ -9,6 +9,10 @@ PostgreSQL:
     - POSTGRES_DB=hibernate-studies-test
     - POSTGRES_USER=hibernate-studies
     - PGDATA=/vm_pg/data
+    # Run 
+    #  psql -h 127.0.0.1 -U hibernate-studies -d hibernate-studies-test 
+    # then
+    # CREATE DATABASE "hibernate-studies";
   volumes:
    - ./tmp/:/vm_pg/
 
