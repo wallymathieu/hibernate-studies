@@ -7,7 +7,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.core.env.Environment;
 import org.springframework.web.context.WebApplicationContext;
 import se.gewalli.data.HibernateRepository;
 import se.gewalli.data.Repository;
@@ -16,8 +16,13 @@ import se.gewalli.data.Repository;
 public class HibernateConfig {
     @Bean()
     @Scope( ConfigurableBeanFactory.SCOPE_SINGLETON)
-    public SessionFactory sessionFactory() {
-        return new org.hibernate.cfg.Configuration().configure().buildSessionFactory();
+    public SessionFactory sessionFactory(@Autowired Environment env) {
+        return new org.hibernate.cfg.Configuration()
+            .configure()
+            .setProperty("hibernate.connection.url", env.getProperty("connection_url"))
+            .setProperty("hibernate.connection.username", env.getProperty("connection_username"))
+            .setProperty("hibernate.connection.password", env.getProperty("connection_password"))
+            .buildSessionFactory();
     }
 
 

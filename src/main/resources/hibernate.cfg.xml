@@ -7,10 +7,11 @@
     <session-factory>
 
         <property name="connection.driver_class">org.postgresql.Driver</property>
+        <!--
         <property name="connection.url">jdbc:postgresql://127.0.0.1:5432/hibernate-studies</property>
         <property name="connection.username">hibernate-studies</property>
         <property name="connection.password">0c52788f-770c-4ddc-a6e3-19c324e1fb24</property>
-
+-->
         <!-- JDBC connection pool (use the built-in) -->
         <property name="connection.pool_size">1</property>
 

@@ -1,16 +1,34 @@
-PostgreSQL:
-  restart: always
-  image: postgres 
-  ports:
-    - "5432:5432"
-  environment:
-    - DEBUG=false
-    - PGDATA=/vm_pg/data
-  volumes:
-   - ./tmp/:/vm_pg/
+version: '3.4'
+services:
+  pg:
+    restart: always
+    image: postgres 
+    ports:
+      - "5432:5432"
+    environment:
+      - DEBUG=false
+      - PGDATA=/vm_pg/data
+    volumes:
+    - ./tmp/:/vm_pg/
 
-# psql -c 'CREATE DATABASE "hibernate-studies-test";' -U postgres -h 127.0.0.1 
-# psql -c "CREATE USER \"hibernate-studies\" WITH ENCRYPTED PASSWORD '0c52788f-770c-4ddc-a6e3-19c324e1fb24';" -U postgres -h 127.0.0.1
-# psql -c "GRANT ALL PRIVILEGES ON DATABASE \"hibernate-studies-test\" TO \"hibernate-studies\" ;"  -U postgres -h 127.0.0.1
-# psql -c 'CREATE DATABASE "hibernate-studies";' -U postgres -h 127.0.0.1 
-# psql -c "GRANT ALL PRIVILEGES ON DATABASE \"hibernate-studies\" TO \"hibernate-studies\" ;"  -U postgres -h 127.0.0.1
+  # psql -c 'CREATE DATABASE "hibernate-studies-test";' -U postgres -h 127.0.0.1 
+  # psql -c "CREATE USER \"hibernate-studies\" WITH ENCRYPTED PASSWORD '0c52788f-770c-4ddc-a6e3-19c324e1fb24';" -U postgres -h 127.0.0.1
+  # psql -c "GRANT ALL PRIVILEGES ON DATABASE \"hibernate-studies-test\" TO \"hibernate-studies\" ;"  -U postgres -h 127.0.0.1
+  # psql -c 'CREATE DATABASE "hibernate-studies";' -U postgres -h 127.0.0.1 
+  # psql -c "GRANT ALL PRIVILEGES ON DATABASE \"hibernate-studies\" TO \"hibernate-studies\" ;"  -U postgres -h 127.0.0.1
+
+
+  app:
+    restart: always
+    image: openjdk
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./target/:/app/
+    environment: 
+      - connection_url=jdbc:postgresql://pg:5432/hibernate-studies-test
+      - connection_username=hibernate-studies
+      - connection_password=0c52788f-770c-4ddc-a6e3-19c324e1fb24
+      - hibernate_hbm2ddl_auto=create
+    working_dir: /app
+    command: "java -jar hibernate-studies-1.0-SNAPSHOT.jar"
