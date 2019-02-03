@@ -1,5 +1,6 @@
 language: java
 services: postgresql
+jdk: openjdk11
 before_script:
   - psql -c 'CREATE DATABASE "hibernate-studies-test";' -U postgres
   - psql -c "CREATE USER \"hibernate-studies\" WITH ENCRYPTED PASSWORD '0c52788f-770c-4ddc-a6e3-19c324e1fb24';" -U postgres

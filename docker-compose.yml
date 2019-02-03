@@ -20,7 +20,7 @@ services:
 
   app:
     restart: always
-    image: openjdk
+    image: "openjdk:11.0.1-jre-slim-stretch"
     ports:
       - "8080:8080"
     volumes:
