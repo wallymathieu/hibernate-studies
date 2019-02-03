@@ -29,6 +29,5 @@ services:
       - connection_url=jdbc:postgresql://pg:5432/hibernate-studies-test
       - connection_username=hibernate-studies
       - connection_password=0c52788f-770c-4ddc-a6e3-19c324e1fb24
-      - hibernate_hbm2ddl_auto=create
     working_dir: /app
     command: "java -jar hibernate-studies-1.0-SNAPSHOT.jar"
