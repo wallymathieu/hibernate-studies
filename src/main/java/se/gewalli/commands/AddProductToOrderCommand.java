@@ -31,7 +31,7 @@ public final class AddProductToOrderCommand extends Command {
 
     @Override
     public void run(Repository repository) throws EntityNotFound {
-        Order order = repository.getOrder(orderId);
+        var order = repository.getOrder(orderId);
         if (!order.products.stream().anyMatch(p->p.id == productId)) {
             order.products.add(repository.getProduct(productId));
             order.version++;

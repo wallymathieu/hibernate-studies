@@ -17,29 +17,25 @@ public class CustomerDataTests {
     private Supplier<SessionFactory> sessionFactory = () -> setUp();
 
     private static SessionFactory setUp() {
-        SessionFactory s = new Configuration().configure().buildSessionFactory();
-        GetCommands getCommands=new GetCommands();
+        var sessionFactory = new Configuration().configure().buildSessionFactory();
+        var getCommands=new GetCommands();
 
         for (Command command : getCommands.Get()) {
-            runInSession(s, command);
+            runInSession(sessionFactory, command);
         }
-        return s;
+        return sessionFactory;
     }
     private static void runInSession(SessionFactory sessionFactory, Command command){
-        Session session = null;
         Transaction transaction=null;
-        try {
-            session= sessionFactory.openSession();
+        try (var session= sessionFactory.openSession()){
             transaction = session.beginTransaction();
-            HibernateRepository repository = new HibernateRepository(session);
+            var repository = new HibernateRepository(session);
 
             command.run(repository);
             transaction.commit();
         }catch (Exception e){
             if (transaction!=null)transaction.rollback();
             System.out.println(e.getMessage());
-        }finally {
-            if (session!=null)session.close();
         }
     }
 

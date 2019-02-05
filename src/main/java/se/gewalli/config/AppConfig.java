@@ -22,8 +22,8 @@ public class AppConfig {
     @Bean
     @Scope( ConfigurableBeanFactory.SCOPE_SINGLETON)
     public AppendBatch appendBatch() {
-        String dbLocation = env.getProperty("FILE_DB_LOCATION");
-        Logger logger = LoggerFactory.getLogger(AppConfig.class);
+        var dbLocation = env.getProperty("FILE_DB_LOCATION");
+        var logger = LoggerFactory.getLogger(AppConfig.class);
         if (dbLocation == null || dbLocation.isEmpty()) {
             logger.info("No database location found, using tmp");
             dbLocation = "/tmp/test.db";
