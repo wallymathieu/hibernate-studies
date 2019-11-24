@@ -113,7 +113,7 @@
         <dependency>
             <groupId>se.gewalli.kyminon</groupId>
             <artifactId>kyminon</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.0</version>
           </dependency>
     </dependencies>
     <build>
@@ -143,6 +143,7 @@
                     <rulesUri>file:///${session.executionRootDirectory}/maven-version-rules.xml</rulesUri>
                 </configuration>
             </plugin>
+            <!--
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
@@ -158,6 +159,7 @@
                     <failBuildOnCVSS>6</failBuildOnCVSS>
                 </configuration>
             </plugin>
+            -->
         </plugins>
     </build>
     <repositories>
