@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import org.springframework.web.context.WebApplicationContext;
+
 import se.gewalli.AppendBatch;
 import se.gewalli.CommandsHandler;
 import se.gewalli.json.AppendToFile;
