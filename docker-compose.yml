@@ -8,6 +8,9 @@ services:
     environment:
       - DEBUG=false
       - PGDATA=/vm_pg/data
+      - POSTGRES_PASSWORD=0c52788f-770c-4ddc-a6e3-19c324e1fb24
+      - POSTGRES_USER=hibernate-studies
+      - POSTGRES_DB=hibernate-studies-test
     volumes:
     - ./tmp/:/vm_pg/
 
