@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import se.gewalli.AppendBatch;
 import se.gewalli.CommandsHandler;
@@ -38,5 +39,9 @@ public class AppConfig {
     @Scope(value = WebApplicationContext.SCOPE_REQUEST)
     public CommandsHandler persistCommandsHandler() {
         return new CommandsHandler();
+    }
+    @Bean
+    public InternalResourceViewResolver defaultViewResolver() {
+        return new InternalResourceViewResolver();
     }
 }
