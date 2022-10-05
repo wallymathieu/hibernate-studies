@@ -1,0 +1,39 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Start PostgreSQL on Ubuntu
+      run: |
+        sudo systemctl start postgresql.service
+        pg_isready
+    
+    - name: Create database
+      run: sudo -u postgres psql -c 'CREATE DATABASE "hibernate-studies-test";'
+    - name: Create user
+      run: |
+        sudo -u postgres psql -c "CREATE USER \"hibernate-studies\" WITH ENCRYPTED PASSWORD '0c52788f-770c-4ddc-a6e3-19c324e1fb24';"
+    - name: Grant all to user for DB
+      run: |
+        sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE \"hibernate-studies-test\" TO \"hibernate-studies\" ;"    
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
