@@ -1,7 +1,7 @@
 package se.gewalli.controllers;
 
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
@@ -42,7 +42,7 @@ public class OrdersController {
         return ResponseEntity.ok(repository.getOrders().toArray(new Order[0]));
     }
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "successful operation", response = Order.class)})
+            @ApiResponse(responseCode = "200", description = "successful operation")})
     @RequestMapping(value = "/api/orders", method = RequestMethod.POST)
     public CompletableFuture<ResponseEntity<Order>> add(@RequestBody()CreateOrder body) {
         Command command=new AddOrderCommand(body.id,0, body.customer, Instant.now() );
@@ -51,7 +51,7 @@ public class OrdersController {
                         err->ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body((Order)null)));
     }
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "successful operation", response = Order.class)})
+            @ApiResponse(responseCode = "200", description = "successful operation")})
     @RequestMapping(value = "/api/orders/{id}/products", method = RequestMethod.POST)
     public CompletableFuture<ResponseEntity<Order>> addProduct(int id, @RequestBody()AddProduct body) {
         Command command=new AddProductToOrderCommand(0,0, id, body.productId );

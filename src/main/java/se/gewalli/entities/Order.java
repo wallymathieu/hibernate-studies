@@ -1,7 +1,7 @@
 package se.gewalli.entities;
 
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -9,7 +9,7 @@ import java.time.Instant;
 
 @Entity(name="Orders")
 public class Order {
-    @javax.persistence.Id
+    @jakarta.persistence.Id
     public int id;
     @OneToOne
     public Customer customer;
