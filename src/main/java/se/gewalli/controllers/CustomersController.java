@@ -1,7 +1,7 @@
 package se.gewalli.controllers;
 
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
@@ -38,7 +38,7 @@ public class CustomersController {
         return ResponseEntity.ok(repository.getCustomers().toArray(new Customer[0]));
     }
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "successful operation", response = Customer.class)})
+            @ApiResponse(responseCode = "200", description = "successful operation")})
     @RequestMapping(value = "/api/customers", method = RequestMethod.POST)
     public CompletableFuture<ResponseEntity<Customer>> add(@RequestBody()CreateCustomer body) {
         Command command=new AddCustomerCommand(body.id,0, body.firstname, body.lastname);

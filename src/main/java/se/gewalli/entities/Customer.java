@@ -1,10 +1,10 @@
 package se.gewalli.entities;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 
 @Entity(name="Customers")
 public class Customer {
-    @javax.persistence.Id
+    @jakarta.persistence.Id
     public int id;
     public String firstname;
     public String lastname;

@@ -7,8 +7,6 @@ import se.gewalli.commands.Command;
 import se.gewalli.data.EntityNotFound;
 import se.gewalli.data.Repository;
 import se.gewalli.kyminon.Result;
-
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 
